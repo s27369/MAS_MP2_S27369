@@ -25,7 +25,7 @@ public class ObjectPlus implements Serializable {
     protected void addToExtent(){
         List list = extent.computeIfAbsent(this.getClass(), a-> new ArrayList<>());
         list.add(this);
-        System.out.println("added to extent:"+this);
+//        System.out.println("added to extent:"+this);
     }
     protected void removeFromExtent() {
         List list = extent.get(this.getClass());

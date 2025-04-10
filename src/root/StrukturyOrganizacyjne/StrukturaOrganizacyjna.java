@@ -49,8 +49,10 @@ public abstract class StrukturaOrganizacyjna extends ObjectPlus {
         else
             this.toStringType=ToStringType.SIMPLE;
     }
-    public void changeToStringType(ToStringType type){
+    public ToStringType changeToStringType(ToStringType type){
+        ToStringType oldType = this.toStringType;
         this.toStringType=type;
+        return oldType;
     }
 
     public ToStringType getToStringType() {

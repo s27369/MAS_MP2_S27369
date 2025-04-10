@@ -30,21 +30,38 @@ public class Batalion extends StrukturaOrganizacyjna {
         if(brygadaMacierzysta==null) {//czy argument to null
             throw new IllegalArgumentException("brygadaMacierzysta nie może być null");
         }
-        if(this.brygadaMacierzysta==null) {//czy jest juz przypisana brygada mac.
+        if(this.brygadaMacierzysta!=null) {//czy jest juz przypisana brygada mac.
+            ToStringType batType = this.changeToStringType(ToStringType.SIMPLE);
+            ToStringType brygType = this.brygadaMacierzysta.changeToStringType(ToStringType.SIMPLE);
             System.out.println("Brygada macierzysta dla "+this+" jest już przypisana: "+this.brygadaMacierzysta);
+            this.changeToStringType(batType);
+            this.brygadaMacierzysta.changeToStringType(brygType);
             return ;
         }
+        ToStringType batType = this.changeToStringType(ToStringType.SIMPLE);
+        ToStringType brygType = brygadaMacierzysta.changeToStringType(ToStringType.SIMPLE);
         System.out.println("W ramach "+brygadaMacierzysta+ " uformowano "+this);
+        this.changeToStringType(batType);
+        brygadaMacierzysta.changeToStringType(brygType);
         this.brygadaMacierzysta = brygadaMacierzysta;
         brygadaMacierzysta.addBatalion(this);
     }
 
     public void removeBrygadaMacierzysta(){
         if(this.brygadaMacierzysta == null){
+            ToStringType batType = this.changeToStringType(ToStringType.SIMPLE);
             System.out.println("Batalion "+this+" nie ma przypisanej brygady macierzystej");
+            this.changeToStringType(batType);
         }else{
+            ToStringType batType = this.changeToStringType(ToStringType.SIMPLE);
+            ToStringType brygType = this.brygadaMacierzysta.changeToStringType(ToStringType.SIMPLE);
             System.out.println("Usuwam przypisanie "+this+ " do "+this.brygadaMacierzysta);
+            this.changeToStringType(batType);
+            this.brygadaMacierzysta.changeToStringType(brygType);
+
+            Brygada brygCopy = this.brygadaMacierzysta;
             this.brygadaMacierzysta=null;
+            brygCopy.removeBatalion(this);
         }
     }
 
@@ -74,7 +91,7 @@ public class Batalion extends StrukturaOrganizacyjna {
     @Override
     public String toString() {
         if(this.toStringType==ToStringType.SIMPLE){
-            return numer + " Batalion "+this.suffix;
+            return numer + " Batalion";
         }else{
             String brygadaMsg;
             if(this.brygadaMacierzysta==null){
@@ -87,10 +104,10 @@ public class Batalion extends StrukturaOrganizacyjna {
             }
 
             String msg = "Batalion{" +
-                    "adresJednostki=" + adresJednostki +
+                    "numer=" + numer +
                     ", brygadaMacierzysta=" + brygadaMsg +
                     ", dowodca=" + dowodca +
-                    ", numer=" + numer +
+                    ", adresJednostki=" + adresJednostki +
                     '}';
             return msg;
         }

@@ -10,7 +10,7 @@ public class Adres implements Serializable {
     public Adres(String ulica, int numUlica, String miasto) {
         setUlica(ulica);
         setNumUlica(numUlica);
-        setUlica(miasto);
+        setMiasto(miasto);
     }
 
     @Override

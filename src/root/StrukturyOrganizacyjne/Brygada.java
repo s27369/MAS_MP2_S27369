@@ -24,11 +24,9 @@ public class Brygada extends StrukturaOrganizacyjna {
         if(batalion==null)
             throw new IllegalArgumentException("batalion nie może być null");
         if(this.bataliony.contains(batalion)){
-            ToStringType typeBryg = this.getToStringType();
-            ToStringType typeBat = batalion.getToStringType();
-            this.changeToStringType(ToStringType.SIMPLE);
-            batalion.changeToStringType(ToStringType.SIMPLE);
-            System.out.println("Brygada "+this+ "ma już przypisany batalion "+batalion);
+            ToStringType typeBryg = this.changeToStringType(ToStringType.SIMPLE);
+            ToStringType typeBat = batalion.changeToStringType(ToStringType.SIMPLE);
+            System.out.println(this+ " ma już przypisany batalion "+batalion);
             this.changeToStringType(typeBryg);
             batalion.changeToStringType(typeBat);
             return ;
@@ -41,13 +39,10 @@ public class Brygada extends StrukturaOrganizacyjna {
         if(batalion==null)
             throw new IllegalArgumentException("batalion nie może być null");
 
-        ToStringType typeBryg = this.getToStringType();
-        ToStringType typeBat = batalion.getToStringType();
+        ToStringType typeBat = batalion.changeToStringType(ToStringType.SIMPLE);
+        ToStringType typeBryg = this.changeToStringType(ToStringType.SIMPLE);
 
         if(this.bataliony.contains(batalion)){
-
-            this.changeToStringType(ToStringType.SIMPLE);
-            batalion.changeToStringType(ToStringType.SIMPLE);
             System.out.println("Usuwam batalion "+ batalion+ " z "+this);
             this.changeToStringType(typeBryg);
             batalion.changeToStringType(typeBat);
@@ -55,8 +50,6 @@ public class Brygada extends StrukturaOrganizacyjna {
             this.bataliony.remove(batalion);
             batalion.removeBrygadaMacierzysta();
         }else{
-            this.changeToStringType(ToStringType.SIMPLE);
-            batalion.changeToStringType(ToStringType.SIMPLE);
             System.out.println("Brygada "+this+" nie ma przypisanego batalionu "+batalion);
             this.changeToStringType(typeBryg);
             batalion.changeToStringType(typeBat);
@@ -104,12 +97,27 @@ public class Brygada extends StrukturaOrganizacyjna {
         if(this.toStringType== ToStringType.SIMPLE){
             return numer + " " + typ + " Brygada " + suffix ;
         }else{
-
+            String batalionyMsg="[";
+            if(this.bataliony.isEmpty()) {
+                batalionyMsg = "brak";
+            }else{
+                int i = 0;
+                String end = ", ";
+                for(Batalion b: bataliony){
+                    if(i==bataliony.size()-1){
+                        end="]";
+                    }
+                    ToStringType type = b.changeToStringType(ToStringType.SIMPLE);
+                    batalionyMsg+=b.toString()+end;
+                    b.changeToStringType(type);
+                    i++;
+                }
+            }
             return "Brygada{" +
                     "numer=" + numer +
                     ", typ='" + typ + '\'' +
                     ", miasto='" + miasto + '\'' +
-                    ", bataliony=" + bataliony +
+                    ", bataliony=" + batalionyMsg +
                     ", dowodca=" + dowodca +
                     '}';
         }

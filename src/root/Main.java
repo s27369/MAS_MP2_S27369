@@ -4,6 +4,8 @@ import root.StrukturyOrganizacyjne.*;
 
 public class Main {
     public static void main(String[] args) {
+        Adres a = new Adres("Wesoła", 1, "Warszawa");
+        System.out.println(a);
         Brygada brygada = new Brygada(18, "Stołeczna", "Warszawa");
         Batalion b1 = new Batalion(181, new Adres("Wesoła", 1, "Warszawa"));
         Batalion b2 = new Batalion(182, new Adres("Smutna", 2, "Warszawa"));
