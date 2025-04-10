@@ -1,6 +1,6 @@
 package root.Osoby;
 
-import old.ObjectPlus;
+import root.ObjectPlus;
 
 public class Osoba extends ObjectPlus {
     private String imie, nazwisko;

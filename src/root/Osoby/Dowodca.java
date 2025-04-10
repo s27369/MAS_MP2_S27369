@@ -1,8 +1,6 @@
 package root.Osoby;
 
-import old.StrukturyOrganizacyjne.Batalion;
-import old.StrukturyOrganizacyjne.Brygada;
-import old.StrukturyOrganizacyjne.StrukturaOrganizacyjna;
+import root.StrukturyOrganizacyjne.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,13 +31,6 @@ public class Dowodca extends Zolnierz {
     public void obejmijDowodztwo(StrukturaOrganizacyjna dowodzonaStruktura) {
         if(dowodzonaStruktura==null){
             throw new IllegalArgumentException("dowodzonaStruktura nie może być null ani puste");
-        }
-        if (dowodzonaStruktura instanceof Brygada){
-            if(!czyGeneral)
-                throw new IllegalArgumentException("Dowódcą brygady może zostać tylko generał");
-        } else if (dowodzonaStruktura instanceof Batalion) {
-            if(!this.getStopien().toLowerCase().equals("pułkownik"))
-                throw new IllegalArgumentException("Dowódcą batalionu może zostać tylko pułkownik");
         }
         dowodzonaStruktura.setDowodca(this);
         this.dowodzonaStruktura = dowodzonaStruktura;
