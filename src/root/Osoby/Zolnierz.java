@@ -1,6 +1,7 @@
 package root.Osoby;
 
 import root.Inne.Kontrakt;
+import root.Inne.KsiazeczkaWojskowa;
 import root.StrukturyOrganizacyjne.Batalion;
 import root.StrukturyOrganizacyjne.Brygada;
 import root.ToStringType;
@@ -10,21 +11,33 @@ import java.util.Collections;
 import java.util.List;
 
 public class Zolnierz extends Osoba {
+    //kompozycja: zolnierz ma ksiazeczke wojskowa
     private String stopien;
     private List<Kontrakt> kontraktList = new ArrayList<>();
+    private final KsiazeczkaWojskowa ksiazeczkaWojskowa;
 //    private Zolnierz przelozony;
 
-    public Zolnierz(String imie, String nazwisko, String stopien) {
+    public Zolnierz(String imie, String nazwisko, String stopien, String nrKsiazeczkiWojskowej) {
         super(imie, nazwisko);
         try {
             setStopien(stopien);
+            this.ksiazeczkaWojskowa = new KsiazeczkaWojskowa(nrKsiazeczkiWojskowej, this);
         } catch (Exception e) {
             e.printStackTrace();
             removeFromExtent();
         }
 
     }
-//-------------------------------------------------BRYGADA----------------------------------------------------------------
+//-------------------------------------------------KOMPOZYCJA----------------------------------------------------------------
+
+
+    @Override
+    protected void removeFromExtent() {
+        this.ksiazeczkaWojskowa.removeFromExtent();
+        super.removeFromExtent();
+    }
+
+    //-------------------------------------------------BRYGADA----------------------------------------------------------------
     public void addBrygada(Brygada brygada, int naIleLat){
         new Kontrakt(this, brygada, naIleLat);
     }

@@ -99,10 +99,11 @@ public class Main {
         printClassExtent(Pojazd.class);
         printClassExtent(Batalion.class);
 
-//        System.out.println("=====================================KOMPOZYCJA===============================================");
+        System.out.println("=====================================KOMPOZYCJA===============================================");
 
 
 
+        System.out.println("--------------------PROBA DODANIA SPRZETU DO INNEGO MAGAZYNU--------------------");
     }
 
 
