@@ -1,16 +1,22 @@
 package root.StrukturyOrganizacyjne;
 
-import root.Adres;
+import root.Inne.Adres;
+import root.Inne.Pojazd;
 import root.Osoby.Dowodca;
 import root.ToStringType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Batalion extends StrukturaOrganizacyjna {
     //każdy batalion ma swoją jednostkę.
-    //dowódcą batalionu może zostać tylko pułkownik.
+    //batalion moze miec przypisane pojazdy
 
     //asocjacja zwykla: brygada 1-*batalion
+    //asocjacja kwalifikowana: pojazd *-1 batalion
     private Adres adresJednostki;
     private Brygada brygadaMacierzysta;
+    private Map<String, Pojazd> pojazdMap = new HashMap<>();
 
     public Batalion(int numer, Adres adresJednostki) {
         super(numer);
@@ -21,6 +27,7 @@ public class Batalion extends StrukturaOrganizacyjna {
         this(numer, adresJednostki);
         setBrygadaMacierzysta(brygadaMacierzysta);
     }
+//    ------------------------------BRYGADA MACIERZYSTA------------------------------
 
     public Brygada getBrygadaMacierzysta() {
         return brygadaMacierzysta;
@@ -64,6 +71,24 @@ public class Batalion extends StrukturaOrganizacyjna {
             brygCopy.removeBatalion(this);
         }
     }
+//    ------------------------------POJAZD------------------------------
+    public void addPojazd(Pojazd pojazd){
+        if(pojazd==null){
+            throw new IllegalArgumentException("Pojazd nie moze byc null");
+        }
+        if(this.pojazdMap.containsKey(pojazd.getNazwa())){
+            System.out.println("Pojazd jest już przypisany do tej brygady");
+            return;
+        }
+        pojazdMap.put(pojazd.getNazwa(), pojazd);
+    }
+    public Pojazd findPojazdByNazwa(String nazwa){
+        if(nazwa==null){
+            throw new IllegalArgumentException("Nazwa nie moze byc null");
+        }
+        return this.pojazdMap.get(nazwa);
+    }
+//    ------------------------------ADRES------------------------------
 
     public Adres getAdresJednostki() {
         return adresJednostki;
@@ -75,15 +100,16 @@ public class Batalion extends StrukturaOrganizacyjna {
         }
         this.adresJednostki = adresJednostki;
     }
+//    ------------------------------DOWODCA------------------------------
 
     @Override
     public void setDowodca(Dowodca dowodca) {
         if(dowodca==null){
             throw new IllegalArgumentException("dowodca nie moze byc null");
         }
-        if(!dowodca.getStopien().toLowerCase().equals("pułkownik")){
-            throw new IllegalArgumentException("Dowódcą batalionu może zostać tylko pułkownik");
-        }
+//        if(!dowodca.getStopien().toLowerCase().equals("pułkownik")){
+//            throw new IllegalArgumentException("Dowódcą batalionu może zostać tylko pułkownik");
+//        }
         System.out.println(dowodca+" obejmuje dowództwo w strukturze organizacyjnej: "+ this);
         this.dowodca = dowodca;
     }

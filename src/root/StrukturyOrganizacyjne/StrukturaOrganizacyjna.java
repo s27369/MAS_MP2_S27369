@@ -12,7 +12,6 @@ public abstract class StrukturaOrganizacyjna extends ObjectPlus {
 
     public StrukturaOrganizacyjna(int numer) {
         setNumer(numer);
-        addToExtent();
     }
 
     public StrukturaOrganizacyjna(Dowodca dowodca, int numer) {
