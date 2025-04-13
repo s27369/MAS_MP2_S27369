@@ -77,10 +77,24 @@ public class Batalion extends StrukturaOrganizacyjna {
             throw new IllegalArgumentException("Pojazd nie moze byc null");
         }
         if(this.pojazdMap.containsKey(pojazd.getNazwa())){
-            System.out.println("Pojazd jest już przypisany do tej brygady");
+//            System.out.println("Pojazd jest już przypisany do tego batalionu");
             return;
         }
+
         pojazdMap.put(pojazd.getNazwa(), pojazd);
+
+        if(pojazd.getBatalion() !=this)
+            pojazd.setBatalion(this);
+    }
+    public void removePojazd(String nazwa){
+        Pojazd pojazd = findPojazdByNazwa(nazwa);
+        if(pojazd==null){
+            System.out.println("Nie znaleziono pojazdu "+nazwa);
+            return;
+        }
+        pojazdMap.remove(pojazd.getNazwa());
+        if(pojazd.getBatalion() == this)
+            pojazd.removeBatalion();
     }
     public Pojazd findPojazdByNazwa(String nazwa){
         if(nazwa==null){
@@ -134,6 +148,7 @@ public class Batalion extends StrukturaOrganizacyjna {
                     ", brygadaMacierzysta=" + brygadaMsg +
                     ", dowodca=" + dowodca +
                     ", adresJednostki=" + adresJednostki +
+                    ", pojazdMap=" + pojazdMap +
                     '}';
             return msg;
         }
